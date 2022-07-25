@@ -19,7 +19,7 @@ const grid2 = [
   [".", ".", ".", ".", ".", "2", ".", ".", "."],
   [".", "1", ".", "2", ".", ".", ".", ".", "."],
   [".", "2", ".", ".", "3", ".", ".", ".", "."],
-]
+];
 
 function solution(grid) {
   // Horizontally
@@ -30,26 +30,34 @@ function solution(grid) {
         if (arr[t] !== "." && arr[j] !== "." && arr[t] === arr[j]) {
           return false;
         }
-       
       }
-    }
-  }
-  // Vertically
-  for(let i = 0; i < grid.length;i++){
-    for (let t = 0; t < grid[i].length - 1; t++){
+      // Vertically
       for (let j = i + 1; j < grid[i].length; j++) {
-        if (grid[i][t] !== "." && grid[j][t] !== "." && grid[i][t] === grid[j][t]) {
+        if (
+          grid[i][t] !== "." &&
+          grid[j][t] !== "." &&
+          grid[i][t] === grid[j][t]
+        ) {
           return false;
+        }
+      }
+      // 3X3 Box
+      let row = Math.floor(i / 3) * 3;
+      let col = Math.floor(t / 3) * 3;
+      for (let x = row; x < row + 3; x++) {
+        for (y = col; y < col + 2; y++) {
+          if (
+            x !== i &&
+            y !== t &&
+            grid[x][y] === grid[i][t] &&
+            grid[x][y] !== "."
+          ) {
+            return false;
+          }
         }
       }
     }
   }
-  // 3X3
-  // 3-ը 3-ի վրայի check-ը չի ստացվում մոտս դեռ նորից կփորձեմ 
-
-
   return true;
 }
 console.log(solution(grid1));
-
-
